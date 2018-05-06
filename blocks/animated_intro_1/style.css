@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+}
+
+div.chart {
+  position: relative;
+  padding: 30px;
+}
+
+div.header {
+  margin: 0 auto;
+  text-align: center;
+  width: max-content;
+}
+
+div.paths, div.stars {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;  
+}
+
+h1 {
+  color: lightGrey;
+  opacity: 0;
+  font-family: 'Indie Flower', cursive;
+}
+
+.color-0 { color: rgb(255, 0, 171); }
+.color-1 { color: rgb(0, 168, 255); }
+.color-2 { color: rgb(171, 0, 255); }
+.color-3 { color: rgb(255, 171, 0); }
+.color-4 { color: rgb(168, 255, 0); }
