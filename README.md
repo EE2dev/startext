@@ -46,7 +46,8 @@ If you use NPM, `npm run prepare`.
 
 ## Bl.ocks
 
-Some examples which have been build on the way to startext.js are [in the blocks directory](https://github.com/EE2dev/startext/tree/master/blocks)
+Some examples which have been build on the way to startext.js are [in the blocks directory](https://github.com/EE2dev/startext/tree/master/blocks).
+[Here](https://bl.ocks.org/EE2dev/e01de51772be2cace280a8b6bae30800) is a link to the original blocks.
 
 ## License
 
