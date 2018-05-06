@@ -1,7 +1,8 @@
 # startext.js
 
 An animation of text lines based on d3.js and [this amazing codepen from Blake Bowen](https://codepen.io/osublake/pen/RLOzxo).
-To use it simply copy [the example from this block] and adjust the `myIntro` Array.
+
+To use it simply copy [the example from this block](https://bl.ocks.org/ee2dev/66c18f6626e186db0c252a57fceb5327) and adjust the `myIntro` Array.
 For example:
 
 ```
@@ -42,6 +43,10 @@ For example:
 ## Installing
 
 If you use NPM, `npm run prepare`.
+
+## Bl.ocks
+
+Some examples which have been build on the way to startext.js are [in the blocks directory](https://github.com/EE2dev/startext/tree/master/blocks)
 
 ## License
 
