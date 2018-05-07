@@ -13,10 +13,10 @@ For example:
     <meta charset="utf-8">
     <head>    
         <title>animated intro</title>
-        <link href="https://ee2dev.github.io/startext/lib/startext-v10.css" rel="stylesheet">
+        <link href="https://ee2dev.github.io/startext/lib/startext-v11.css" rel="stylesheet">
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-        <script src="https://ee2dev.github.io/startext/lib/startext-v10.min.js"></script> 
+        <script src="https://ee2dev.github.io/startext/lib/startext-v11.min.js"></script> 
     </head>
 
     <body>
