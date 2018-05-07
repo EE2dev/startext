@@ -1,23 +1,16 @@
 import * as d3 from "d3";
+import WebFont from "webfontloader";
 import { createFrames, App } from "./stars";
 import { backgroundImage } from "./backgroundImage";
-import WebFont from "webfontloader";
 import { COLOR, STARS, ROTATION, SCALE } from "./constants";
 
-/*
-export const COLOR = 1;
-export const IMAGE = 2;
-export const STARS = 0;
-export const ROTATION = 1;
-export const SCALE = 2;
-*/
 export {animate};
 
-let pathDurations = [];
+let pathDurations = []; // path durations are computed based on the number of letters per line
 let app; // the main class in stars.js to create the particles
 let containerDiv; // the selection containing the animation
-let myIntro = []; // array of array of strings. Each array of strings is display on one page. Each string animated in one row.
-let index = 0; // counter for each page (line) of the intro 
+let myIntro = []; // array of array of strings. Each array of strings is display on one page. Each string is animated in one line.
+let index = 0; // counter for each page of the intro 
 
 const explosionStrength = 0.002;
 const transitionSpeed = 7;
@@ -36,23 +29,6 @@ const starOptions = {
   useContrastFilter: true
 };
 
-let t1 = ["Congratulations", "to your", "50th birthday !!"];
-t1.defaultLine = STARS;
-t1.punchLine = STARS;
-let t2 = ["All the best wishes", "in terms of", "health, happiness, success and great TV series", "by Antonia and Mihael"];
-t2.defaultLine = ROTATION;
-t2.punchLine = STARS;
-let t3 = ["This animation", "has been implemented specifically for", "Donna Ankerst"];
-t3.defaultLine = SCALE;
-t3.punchLine = STARS;
-let t4 = ["And talk number two", "will be", "'Demystifying black boxes - Why dashboards are failing and design will save us'", "by Evelyn Münster"];
-t4.defaultLine = STARS;
-t4.punchLine = STARS;
-myIntro.push(t1);
-myIntro.push(t2);
-myIntro.push(t3);
-myIntro.push(t4);
-
 function animate(_myIntro, _containerDiv){
   myIntro = _myIntro;
   containerDiv = _containerDiv;
@@ -66,9 +42,6 @@ function animate(_myIntro, _containerDiv){
 }
 
 function display(introLine) {
-  if (typeof introLine.defaultLine === "undefined") { introLine.defaultLine = STARS; }
-  if (typeof introLine.punchLine === "undefined") { introLine.defaultLine = STARS; }
-
   displayText(introLine);
   createPaths();
   animateStars(introLine.defaultLine, myIntro.punchLine);
@@ -168,6 +141,8 @@ function starsAlongPath(path) {
 
 function animateStars(defaultLine, punchLine) {
   intializeStars();
+  if (typeof defaultLine === "undefined") { defaultLine = STARS; }
+  if (typeof punchLine === "undefined") { punchLine = STARS; }
   let durations = pathDurations.concat(pathDurations);
   let chainedSel = d3.selectAll(".trans").data(durations);
   chainedTransition(chainedSel);
