@@ -2,26 +2,26 @@ import * as d3 from "d3";
 import WebFont from "webfontloader";
 import { createFrames, App } from "./stars";
 import { backgroundImage } from "./backgroundImage";
-import { COLOR, STARS, ROTATION, SCALE } from "./constants";
+import { STARS, ROTATION, SCALE } from "./constants";
 
 export {animate};
 
 let pathDurations = []; // path durations are computed based on the number of letters per line
 let app; // the main class in stars.js to create the particles
-let containerDiv; // the selection containing the animation
-let myIntro = []; // array of array of strings. Each array of strings is display on one page. Each string is animated in one line.
 let index = 0; // counter for each page of the intro 
 
-const explosionStrength = 0.002;
-const transitionSpeed = 7;
-const pause = 5000; // pause in milliseconds in between the pages 
+// options
+let containerDiv; // the selection containing the animation
+let myIntro = []; // array of array of strings. Each array of strings is displayed on one page. Each string is animated on one line.
+let transitionSpeed;
+let explosionStrength;
+let pause;
+let replay; 
 
-const starOptions = {
+let starOptions = {
   mouseListener: false,
   frames: createFrames(5, 80, 80),
   maxParticles: 2000,
-  background: COLOR,
-  backgroundColor: "#111111",
   blendMode: "lighter",
   filterBlur: 50,
   filterContrast: 300,
@@ -29,9 +29,19 @@ const starOptions = {
   useContrastFilter: true
 };
 
-function animate(_myIntro, _containerDiv){
-  myIntro = _myIntro;
-  containerDiv = _containerDiv;
+function setOptions(_options){
+  containerDiv = _options.containerDiv.classed("introchart", true);
+  myIntro = _options.myIntro;
+  transitionSpeed = _options.transitionSpeed;
+  explosionStrength = _options.explosionStrength;
+  pause = _options.pause;
+  replay = _options.replay;
+  starOptions.background = _options.background;
+  starOptions.backgroundColor = _options.backgroundColor;
+}
+
+function animate(_options){
+  setOptions(_options);
   // the following ensures the fonts have arrived at the client before the animation starts 
   WebFont.load({
     google: { families: ["Indie Flower"]},
@@ -41,10 +51,10 @@ function animate(_myIntro, _containerDiv){
   });
 }
 
-function display(introLine) {
-  displayText(introLine);
+function display(introPage) {
+  displayText(introPage);
   createPaths();
-  animateStars(introLine.defaultLine, myIntro.punchLine);
+  animateStars(introPage.defaultLine, introPage.punchLine);
 }
 
 function displayText(_textArray) {
@@ -90,16 +100,24 @@ function createPaths() {
   containerDiv.selectAll("h1")
     .each(function(d,i) {
       let bBox = d3.select(this).node().getBoundingClientRect();
+      // get width from all spans for IE
+      let textWidth = 0;
+      d3.select(this).selectAll("span")
+        .each(function(d) {
+          let w = d3.select(this).node().getBoundingClientRect().width;
+          textWidth = textWidth + w;
+        });
+
       let pos = {};
-      pos.width = bBox.width;
-      pos.xStart = (container.width - bBox.width) / 2;
-      pos.yStart = bBox.y + (bBox.height / 2) - container.y;
+      pos.width = textWidth;
+      pos.xStart = (container.width - textWidth) / 2;
+      pos.yStart = bBox.top + (bBox.height / 2) - container.top;
 
       let p = sel.append("path")
         .attr("class", "header hidden trans " + "h" + i)
         .attr("d", () => {
-          let str =  "M" + pos.xStart + ", " + pos.yStart
-        + " L" + (pos.width + pos.xStart) + ", " + pos.yStart;
+          let str =  "M" + pos.xStart + " " + pos.yStart
+        + " L" + (pos.width + pos.xStart) + " " + pos.yStart;
           return str;
         });
     
@@ -277,7 +295,11 @@ function animateStars(defaultLine, punchLine) {
         pathDurations = [];
         containerDiv.selectAll("*").remove();
         index = index + 1;
-        if (index >= myIntro.length) {index = 0;} 
+        if (index >= myIntro.length) {
+          index = 0;
+          if (!replay)
+            return;
+        } 
         display(myIntro[index]);
       }, pause);
     }
