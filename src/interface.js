@@ -42,7 +42,10 @@ export default function (_myIntro) {
 
   chartAPI.explosionStrength = function(_) {
     if (!arguments.length) return options.explosionStrength;
-    options.explosionStrength = _;
+    if (_ < 0) { _ = 0; }
+    else if (_ > 1) { _ = 1; }
+    let s = d3.scalePow().domain([0,1]).range([1,0]);
+    options.explosionStrength = options.explosionStrength + s(_);
     return chartAPI;
   }; 
 
@@ -60,7 +63,10 @@ export default function (_myIntro) {
 
   chartAPI.transitionSpeed = function(_) {
     if (!arguments.length) return options.transitionSpeed;
-    options.transitionSpeed = _;
+    if (_ < 0) { _ = 0; }
+    else if (_ > 1) { _ = 1; }
+    let s = d3.scaleLinear().domain([0,1]).range([20,1]);
+    options.transitionSpeed = s(_);
     return chartAPI;
   };
 

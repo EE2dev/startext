@@ -60,7 +60,7 @@ function display(introPage) {
 function displayText(_textArray) {
   let sel = containerDiv;
   
-  // add headers for all strings by wrapping each letter around a span
+  // add headers for all strings by wrapping each span around a letter
   // which can be styled individually
   for (let ta = 0; ta < _textArray.length; ta++) {
     let sel2 = sel.append("div")
@@ -77,6 +77,25 @@ function displayText(_textArray) {
         .text(myString[i]); 
     }
   }
+  centerTextVertically();
+}
+
+function centerTextVertically() {
+  var h = window.innerHeight
+  || document.documentElement.clientHeight
+  || document.body.clientHeight;
+
+  let textHeight = 0;
+  containerDiv.selectAll("h1")
+    .each(function(d,i) {
+      let bBox = d3.select(this).node().getBoundingClientRect();
+      textHeight = textHeight + bBox.height;
+    });
+
+  d3.select("div.header.h0").style("padding-top", (h - textHeight) / 2 + "px");
+  console.log("height: " + (h - textHeight) / 2 + "px");
+  d3.select("div.header.h0").style("padding-top", "0px");
+ // d3.select("div.header.h0").style("padding-top", (h - textHeight) / 2 + "px");
 }
 
 function createPaths() {
@@ -100,14 +119,14 @@ function createPaths() {
   containerDiv.selectAll("h1")
     .each(function(d,i) {
       let bBox = d3.select(this).node().getBoundingClientRect();
-      // get width from all spans for IE
+      // get width from all spans (for IE)
       let textWidth = 0;
       d3.select(this).selectAll("span")
         .each(function(d) {
-          let w = d3.select(this).node().getBoundingClientRect().width;
-          textWidth = textWidth + w;
+          let rect = d3.select(this).node().getBoundingClientRect();
+          textWidth = textWidth + rect.width;
         });
-
+      
       let pos = {};
       pos.width = textWidth;
       pos.xStart = (container.width - textWidth) / 2;

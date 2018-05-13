@@ -47,10 +47,10 @@ function | parameter | explanation
 ------------ | -------|------
 `background()` | *integer* | e.g. `startext.chart(myIntro).background(startext.IMAGE)`. The default is startext.COLOR.
 `backgroundColor()` | *string* | e.g. `startext.chart(myIntro).backgroundColor("#000")`. The default is "#111111".
-`explosionStrength()` | *integer* | e.g. `startext.chart(myIntro).explosionStrength(0.005)`. The default is 0.01 (for IE) and 0.002 otherwise.
+`explosionStrength()` | *float* | e.g. `startext.chart(myIntro).explosionStrength(0.8)`. The explosion strength of the punch line with colored stars. The minimum is 0 and the maximum is 1. The default is 1.
 `replay()` | *boolean* | e.g. `startext.chart(myIntro).replay(false)`. The default is true.
 `pause()` | *integer* | e.g. `startext.chart(myIntro).pause(3000)`. The pause in between pages in milliseconds. The default is 5000.
-`transitionSpeed()` | *integer* | e.g. `startext.chart(myIntro).transitionSpeed(2)`. The default is 7.
+`transitionSpeed()` | *integer* | e.g. `startext.chart(myIntro).transitionSpeed(0.4)`. The transition speed of the default line animation with stars. The minimum is 0 and the maximum is 1. The default is 0.686.
 
 ## Installing
 
