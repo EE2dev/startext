@@ -2,14 +2,6 @@ body {
   margin: 0;
 }
 
-/*
-* {
-  background: #000 !important;
-  color: #0f0 !important;
-  outline: solid #f00 1px !important;
-  }
-*/
-
 .introchart {
   position: fixed;
   height: 100vh;
@@ -27,10 +19,6 @@ div.header {
   width: -moz-max-content;    /* Firefox/Gecko */
   width: -webkit-max-content; /* Chrome */
   width: max-content;
-}
-
-div.header.h0 {
-  padding-top: 200px;
 }
 
 div.paths, div.stars {

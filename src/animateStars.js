@@ -58,7 +58,8 @@ function display(introPage) {
 }
 
 function displayText(_textArray) {
-  let sel = containerDiv;
+  let sel = containerDiv.append("div")
+    .attr("class", "textbox");
   
   // add headers for all strings by wrapping each span around a letter
   // which can be styled individually
@@ -85,17 +86,8 @@ function centerTextVertically() {
   || document.documentElement.clientHeight
   || document.body.clientHeight;
 
-  let textHeight = 0;
-  containerDiv.selectAll("h1")
-    .each(function(d,i) {
-      let bBox = d3.select(this).node().getBoundingClientRect();
-      textHeight = textHeight + bBox.height;
-    });
-
-  d3.select("div.header.h0").style("padding-top", (h - textHeight) / 2 + "px");
-  console.log("height: " + (h - textHeight) / 2 + "px");
-  d3.select("div.header.h0").style("padding-top", "0px");
- // d3.select("div.header.h0").style("padding-top", (h - textHeight) / 2 + "px");
+  let textHeight  = containerDiv.select("div.textbox").node().getBoundingClientRect().height;
+  d3.select("div.textbox").style("padding-top", (h - textHeight) / 2 + "px");
 }
 
 function createPaths() {
@@ -147,7 +139,8 @@ function createPaths() {
 
 function intializeStars() {
   let bBox = containerDiv.node().getBoundingClientRect();
-  containerDiv.insert("div", ".widthForIE.h0")
+
+  containerDiv.insert("div", ".textbox")
     .attr("class", "stars")
     .append("canvas")
     .attr("id", "view")
