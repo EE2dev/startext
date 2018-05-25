@@ -12,6 +12,7 @@ export default function (_myIntro) {
   options.transitionSpeed = 7;
   options.background = COLOR;
   options.backgroundColor = "#111111";
+  options.backgroundImage = "https://ee2dev.github.io/startext/lib/backgroundImage.js";
   options.myIntro = _myIntro;
 
   function checkForIE(){
@@ -35,8 +36,14 @@ export default function (_myIntro) {
   };
 
   chartAPI.backgroundColor = function(_) {
-    if (!arguments.length) return options.background;
-    options.background = _;
+    if (!arguments.length) return options.backgroundColor;
+    options.backgroundColor = _;
+    return chartAPI;
+  };
+
+  chartAPI.backgroundImage = function(_) {
+    if (!arguments.length) return options.backgroundImage;
+    options.backgroundImage = _;
     return chartAPI;
   };
 

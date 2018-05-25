@@ -13,7 +13,7 @@
     /* from https://codepo8.github.io/css-fork-on-github-ribbon/# */
     #forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}
     
-    h3 {
+    h3, h5 {
       text-align: center;
     }
 
@@ -22,6 +22,13 @@
       text-shadow: 2px 2px 4px #000000;
       text-align: center;
       font-size: 48px;
+    }
+
+    .footer {
+        margin-right: 20px;
+        color: black;
+        text-align: right;
+        font-size: 12px;
     }
   </style>
 </head>
@@ -32,6 +39,8 @@
   startext.js
 </h1>
 <h3>Make your own animated intro with startext.js within one minute!</h3>
+<h5>Type in your text lines and press the finish button. A new tab will be created with your animation, which you can bookmark.</h5>
+<hr>
 <div class="container">
   <div class="general">
       <a href="#demo" class="btn btn-default" data-toggle="collapse">show/hide options</a>
@@ -101,45 +110,38 @@
   <div class="pages">
     <form class="form-horizontal p1">
       <h2>Page 1</h2>
+
       <div class="form-group">
-        <label class="col-sm-3 control-label">Line 1</label>
-        <div class="col-sm-5">
-          <input class="form-control" id="focusedInput" type="text" onfocus="this.value=''" value="write line 1 here...">
-        </div>
-        <label class="col-sm-2 control-label">animation:</label>
-        <div class="col-sm-2">
-          <div class="dropdown">
-            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+        <label class="col-sm-3 control-label">animation:</label>
+        <div class="dropdown col-sm-5">
+          <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
               <span id="selected" class="p1-l1">STARS</span>
               <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                    <li><a href="#" class="p1-l1">STARS</a></li>
-                    <li><a href="#" class="p1-l1">ROTATION</a></li>
-                    <li><a href="#" class="p1-l1">SCALE</a></li>
-            </ul>
-          </div>
+          </a>
+          <ul class="dropdown-menu">
+                  <li><a href="javascript:void(0)" class="p1-l1">STARS</a></li>
+                  <li><a href="javascript:void(0)" class="p1-l1">ROTATION</a></li>
+                  <li><a href="javascript:void(0)" class="p1-l1">SCALE</a></li>
+          </ul>
         </div>
+        <div class="col-sm-4"></div>
       </div>
 
       <div class="form-group">
-          <label class="col-sm-3 control-label">Line 2</label>
+        <label class="col-sm-3 control-label">line 1:</label>
+        <div class="col-sm-5">
+          <input class="form-control" id="focusedInput" type="text" onfocus="this.value=''" value="write line 1 here...">
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+
+      <div class="form-group">
+          <label class="col-sm-3 control-label">line 2:</label>
           <div class="col-sm-5">
             <input class="form-control" id="focusedInput" type="text" onfocus="this.value=''" value="write line 2 here...">
           </div>
-          <label class="col-sm-2 control-label">animation:</label>
-          <div class="col-sm-2">
-            <div class="dropdown">
-                <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-                  <span id="selected" class="p1-l2">STARS</span><span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#" class="p1-l2">STARS</a></li>
-                <li><a href="#" class="p1-l2">ROTATION</a></li>
-                <li><a href="#" class="p1-l2">SCALE</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+          <div class="col-sm-4"></div>
+      </div>
 
     </div>
   </form>
@@ -150,26 +152,13 @@
     <button type="button" class="btn btn-success finish">finish</button> 
     <br>
   </div>
+  <hr>
+</div>
+<div class="footer">
+  <p>Copyright © 2018 Mihael Ankerst</p>
 </div>
 
 <script>
-
-  function updateEventlistenersDropdown(){
-    $('.dropdown-menu a').click(function(){
-      var cl = d3.select(this).attr("class");
-      $('span.' + cl).text($(this).text());
-      if (cl === "bg-option"){
-        if ($(this).text() === "COLOR") {
-          $("#focusedInput-bo").val("#111111");
-          $("#label-bo").text("background color:");
-        } else if ($(this).text() === "IMAGE") {
-          $("#focusedInput-bo").val("https://ee2dev.github.io/startext/lib/backgroundImage.js");
-          $("#label-bo").text("background image:");
-        }
-      }
-    });
-  }
-
   updateEventlistenersDropdown();
 
   $('.btn.add-page').click(function(){
@@ -188,39 +177,90 @@
     }
   });
 
+  $('.btn.finish').click(function(){
+    callStarText();
+  });
+
   var page = 1;
   var line = 3;
+
+  function updateEventlistenersDropdown(){
+    $('.dropdown-menu a').click(function(){
+      var cl = d3.select(this).attr("class");
+      $('span.' + cl).text($(this).text());
+      if (cl === "bg-option"){
+        if ($(this).text() === "COLOR") {
+          $("#focusedInput-bo").val("#111111");
+          $("#label-bo").text("background color:");
+        } else if ($(this).text() === "IMAGE") {
+          $("#focusedInput-bo").val("https://ee2dev.github.io/startext/lib/backgroundImage.js");
+          $("#label-bo").text("background image:");
+        }
+      }
+    });
+  }
+
+  function callStarText() {
+    var getParameters = "";
+    var str;
+    d3.selectAll("div.pages>form.form-horizontal")
+      .each(function(d,page){
+        d3.select(this).selectAll("div.form-group")
+        .each(function(d,i){
+          if (i === 0) {
+            str = d3.select(this).select("span#selected").text();
+            getParameters = getParameters + "&p" + page  + "dl=" + str; 
+          } else {
+            str = encodeURIComponent(d3.select(this).select("input").node().value);
+            getParameters = getParameters + "&p" + page  + "l" + i + "=" + str; 
+          }
+          console.log("page (" + page +") line(" + i +"): " + str);
+        })
+      });
+    var lastOption = d3.selectAll("div.general div.row").size() - 1;
+    d3.selectAll("div.general div.row")
+      .each(function(d,i){
+        if (i === 0) { 
+          str = encodeURIComponent(d3.select(this).select("input").node().value);
+          getParameters = getParameters + "&o" + i + "a=" + str; 
+          console.log("option (" + i +"a): " + str);
+
+          str = d3.select(this).select("span#selected").text();
+          getParameters = getParameters + "&o" + i + "b=" + str; 
+          console.log("option (" + i +"b): " + str);
+        } 
+        else if (i === lastOption) {
+          str = encodeURIComponent(d3.select(this).select("input").node().checked);
+          getParameters = getParameters + "&o" + i + "=" + str; 
+          console.log("option (" + i +"): " + str);
+        } 
+        else {
+          str = encodeURIComponent(d3.select(this).select("input").node().value);
+          getParameters = getParameters + "&o" + i + "=" + str; 
+          console.log("option (" + i +"): " + str);
+        }
+    });
+    window.open("../index_website.html?" + getParameters);
+  }
 
   function addPage(sel){
     page = page + 1;
     line = 1;
     sel = sel.append("form").attr("class", "form-horizontal p" + page);
     sel.append("h2").text("Page " + page);
+    addAnimation(sel);
     addLine(sel, line);
     addLine(sel, line);
-    updateEventlistenersDropdown();
   }
-  function addLine(sel, lnr){
+
+  function addAnimation(sel){
     sel = sel.append("div")
       .attr("class", "form-group");
     sel.append("label")
       .attr("class", "col-sm-3 control-label")
-      .text("Line " + lnr);
-    var sel2 = sel.append("div")
-      .attr("class", "col-sm-5");
-    sel2.append("input")
-      .attr("class", "form-control")
-      .attr("id", "focusedInput" + "-p" + page + "l" + line)
-      .attr("type", "text")
-      .attr("onfocus", "this.value=''")
-      .attr("value", "write line "+ lnr + " here...");
-    sel.append("label")
-      .attr("class", "col-sm-2 control-label")
       .text("animation:");
     sel = sel.append("div")
-      .attr("class", "col-sm-2")
-      .append("div")
-      .attr("class", "dropdown");
+      .attr("class", "dropdown col-sm-5");
     var sel3 = sel.append("a")
       .attr("role", "button")
       .attr("data-toggle", "dropdown")
@@ -236,21 +276,42 @@
       .attr("class", "dropdown-menu p" + page + " l" + line);
     sel.append("li")
       .append("a")
-      .attr("href", "#")
+      .attr("href", "javascript:void(0)")
       .attr("class", "p" + page + "-l" + line)
       .text("STARS");
     sel.append("li")
       .append("a")
-      .attr("href", "#")
+      .attr("href", "javascript:void(0)")
       .attr("class", "p" + page + "-l" + line)
       .text("ROTATION");
     sel.append("li")
       .append("a")
-      .attr("href", "#")
+      .attr("href", "javascript:void(0)")
       .attr("class", "p" + page + "-l" + line)
       .text("SCALE");
-    line = line + 1;
+      sel = sel.append("div")
+      .attr("class", "col-sm-4");
     updateEventlistenersDropdown();
+  }
+
+  function addLine(sel, lnr){
+    sel = sel.append("div")
+      .attr("class", "form-group");
+    sel.append("label")
+      .attr("class", "col-sm-3 control-label")
+      .text("line " + lnr + ":");
+    var sel2 = sel.append("div")
+      .attr("class", "col-sm-5");
+    sel2.append("input")
+      .attr("class", "form-control")
+      .attr("id", "focusedInput" + "-p" + page + "l" + line)
+      .attr("type", "text")
+      .attr("onfocus", "this.value=''")
+      .attr("value", "write line "+ lnr + " here...");
+    sel2 = sel2.append("div")
+      .attr("class", "col-sm-4");
+    
+    line = line + 1;
   }
 
 </script>

@@ -304,14 +304,14 @@ function animateStars(defaultLine, punchLine) {
 
       setTimeout( function() {
         app2.setActivate(false); 
-        pathDurations = [];
-        containerDiv.selectAll("*").remove();
         index = index + 1;
         if (index >= myIntro.length) {
           index = 0;
           if (!replay)
             return;
         } 
+        pathDurations = [];
+        containerDiv.selectAll("*").remove();
         display(myIntro[index]);
       }, pause);
     }
