@@ -21,10 +21,6 @@ div.header {
   width: max-content;
 }
 
-div.header.h0 {
-  padding-top: 200px;
-}
-
 div.paths, div.stars {
   position: absolute;
   top: 0px;
@@ -34,7 +30,6 @@ div.paths, div.stars {
 
 h1 {
   color: lightGrey;
-  font-family: 'Indie Flower', cursive;
 }
 
 h1 span {
