@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
     <meta charset="utf-8">
     <head>    
@@ -23,6 +23,7 @@
               .background(startext[myIntro.background])
               .backgroundColor(myIntro.backgroundColor)
               .backgroundImage(myIntro.backgroundImage)
+              .fontFamily(myIntro.fontFamily)
               .explosionStrength(myIntro.explosionStrength)
               .transitionSpeed(myIntro.transitionSpeed)
               .pause(myIntro.pause)
@@ -83,10 +84,11 @@
               } else {
                 myIntro.backgroundImage = decodeURIComponent(getAllUrlParams()["o0a"]);
               }
-              myIntro.explosionStrength = decodeURIComponent(getAllUrlParams()["o1"]);
-              myIntro.transitionSpeed = decodeURIComponent(getAllUrlParams()["o2"]);
-              myIntro.pause = decodeURIComponent(getAllUrlParams()["o3"]);
-              myIntro.replay = (decodeURIComponent(getAllUrlParams()["o4"]) === "true");
+              myIntro.fontFamily = decodeURIComponent(getAllUrlParams()["o1"]);
+              myIntro.explosionStrength = decodeURIComponent(getAllUrlParams()["o2"]);
+              myIntro.transitionSpeed = decodeURIComponent(getAllUrlParams()["o3"]);
+              myIntro.pause = decodeURIComponent(getAllUrlParams()["o4"]);
+              myIntro.replay = (decodeURIComponent(getAllUrlParams()["o5"]) === "true");
               
               return myIntro;
             }

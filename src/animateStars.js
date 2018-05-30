@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import WebFont from "webfontloader";
 import { createFrames, App } from "./stars";
-import { backgroundImage } from "./backgroundImage";
+// import { backgroundImage } from "./backgroundImage";
 import { STARS, ROTATION, SCALE } from "./constants";
 
 export {animate};
@@ -17,6 +17,7 @@ let transitionSpeed;
 let explosionStrength;
 let pause;
 let replay; 
+let fontFamily;
 
 let starOptions = {
   mouseListener: false,
@@ -36,15 +37,20 @@ function setOptions(_options){
   explosionStrength = _options.explosionStrength;
   pause = _options.pause;
   replay = _options.replay;
+  fontFamily = _options.fontFamily;
   starOptions.background = _options.background;
   starOptions.backgroundColor = _options.backgroundColor;
-}
+  starOptions.srcBackgroundImage = _options.backgroundImage;
+  let background = new Image();
+  background.src = starOptions.srcBackgroundImage;
+  starOptions.backgroundImage = background;
+}  
 
 function animate(_options){
   setOptions(_options);
   // the following ensures the fonts have arrived at the client before the animation starts 
   WebFont.load({
-    google: { families: ["Indie Flower"]},
+    google: { families: [fontFamily]},
     fontactive: function(){ //This is called once font has been rendered in browser
       display(myIntro[0]);
     },
@@ -69,6 +75,7 @@ function displayText(_textArray) {
       .append("div")
         .attr("class", "header h" + ta)
       .append("h1")
+        .style("font-family", fontFamily)
         .attr("class", "trans");
   
     let myString = _textArray[ta];
@@ -149,10 +156,7 @@ function intializeStars() {
 
   starOptions.texture = document.querySelector("#star-texture-white");
   starOptions.view = document.querySelector("#view");
-  let background = new Image();
-  background.src = backgroundImage;
-  starOptions.backgroundImage = background;
-  
+    
   app = new App(starOptions);
   window.addEventListener("load", app.start());
   window.focus();
@@ -230,12 +234,20 @@ function animateStars(defaultLine, punchLine) {
       else {
         let letters = _selection.filter((d,i) => i === 0).selectAll("span");
         letters
-          .style("-webkit-transform", "rotate(-0deg) scale(.001)")
+          .style("transform", "rotate(-0deg) scale(.001)")
           .transition()
           .duration(2000)
           .delay((d,i) => i * 200)
           .style("opacity", 1)
-          .style("-webkit-transform", "rotate(-720deg) scale(1)")
+          //.style("transform", "rotate(-720deg) scale(1)")
+          .tween("transform", function() {
+            var node = d3.select(this), 
+              s = d3.interpolateNumber(0.001, 1),
+              r = d3.interpolateNumber(-0, -720);
+            return function(t) {
+              node.style("transform", "rotate(" + r(t) + "deg)scale(" + s(t) + ")");
+            };
+          })
           .on ("end", function(d,i) {
             if (i === letters.size()-1) {
               _index = _index + 1;

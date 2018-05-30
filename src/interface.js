@@ -1,8 +1,8 @@
 import * as d3 from "d3";
 import { animate } from "./animateStars";
-import { COLOR } from "./constants";
+import { COLOR, IMAGE } from "./constants";
 
-export default function (_myIntro) {
+export default function (_myIntro, bulkLoad) {
   "use strict";
 
   let options = {};
@@ -10,10 +10,24 @@ export default function (_myIntro) {
   options.explosionStrength = (checkForIE()) ? 0.01 : 0.002;
   options.pause = 5000; // pause in milliseconds in between the pages 
   options.transitionSpeed = 7;
+  options.fontFamily = "Indie Flower";
   options.background = COLOR;
   options.backgroundColor = "#111111";
-  options.backgroundImage = "https://ee2dev.github.io/startext/lib/backgroundImage.js";
+  options.backgroundImage = "https://ee2dev.github.io/startext/lib/nightSky.jpg";
   options.myIntro = _myIntro;
+
+  function bulkSetOptions() {
+    // no validation with if (_myIntro.hasOwnProperties(..))
+    chartAPI
+      .background((_myIntro.background === "COLOR" ? COLOR : IMAGE))
+      .backgroundColor(_myIntro.backgroundColor)
+      .backgroundImage(_myIntro.backgroundImage)
+      .fontFamily(_myIntro.fontFamily)
+      .explosionStrength(_myIntro.explosionStrength)
+      .transitionSpeed(_myIntro.transitionSpeed)
+      .pause(_myIntro.pause)
+      .replay(_myIntro.replay); 
+  }
 
   function checkForIE(){
     const msie = window.navigator.userAgent.indexOf("MSIE ");
@@ -47,6 +61,12 @@ export default function (_myIntro) {
     return chartAPI;
   };
 
+  chartAPI.fontFamily = function(_) {
+    if (!arguments.length) return options.fontFamily;
+    options.fontFamily = _;
+    return chartAPI;
+  };
+  
   chartAPI.explosionStrength = function(_) {
     if (!arguments.length) return options.explosionStrength;
     if (_ < 0) { _ = 0; }
@@ -76,6 +96,8 @@ export default function (_myIntro) {
     options.transitionSpeed = s(_);
     return chartAPI;
   };
+
+  if (bulkLoad) { bulkSetOptions(); }
 
   return chartAPI;
 }

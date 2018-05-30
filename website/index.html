@@ -50,15 +50,15 @@
         <div class="form-group">
 
         <div class="row">
-            <label class="col-sm-3 control-label" id="label-bo">background color:</label>
+            <label class="col-sm-3 control-label" id="label-bo">background image:</label>
             <div class="col-sm-5">
-              <input class="form-control" id="focusedInput-bo" type="text" value="#111111">
+              <input class="form-control" id="focusedInput-bo" onchange="cacheImage()" type="text" value="https://ee2dev.github.io/startext/lib/nightSky.jpg">
             </div>
             <label class="col-sm-2 control-label">background option:</label>
             <div class="col-sm-2">
               <div class="dropdown">
                 <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-                  <span id="selected" class="bg-option">COLOR</span>
+                  <span id="selected" class="bg-option">IMAGE</span>
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -67,6 +67,14 @@
                 </ul>
               </div>
             </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-3 control-label">font-family:</label>
+            <div class="col-sm-5">
+              <input class="form-control" id="focusedInput" type="text" value="Indie Flower">
+            </div>
+            <div class="col-sm-4"></div>
           </div>
 
           <div class="row">
@@ -193,11 +201,17 @@
           $("#focusedInput-bo").val("#111111");
           $("#label-bo").text("background color:");
         } else if ($(this).text() === "IMAGE") {
-          $("#focusedInput-bo").val("https://ee2dev.github.io/startext/lib/backgroundImage.js");
+          $("#focusedInput-bo").val("https://ee2dev.github.io/startext/lib/nightSky.jpg");
           $("#label-bo").text("background image:");
         }
       }
     });
+  }
+
+  function cacheImage() {
+    console.log("cache image begin --");
+    var img = new Image();
+    img.src = d3.select("input#focusedInput-bo").node().value;
   }
 
   function callStarText() {
@@ -240,7 +254,7 @@
           console.log("option (" + i +"): " + str);
         }
     });
-    window.open("../index_website.html?" + getParameters);
+    window.open("st.html?" + getParameters);
   }
 
   function addPage(sel){
