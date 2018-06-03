@@ -42,17 +42,17 @@ function getMyIntro() {
   }
 
   // options
-  myIntro.background = decodeURIComponent(getAllUrlParams()["o0b"]);
+  myIntro.background = decodeURIComponent(getAllUrlParams()["o0"]);
   if (myIntro.background === "COLOR") {
-    myIntro.backgroundColor = decodeURIComponent(getAllUrlParams()["o0a"]);
+    myIntro.backgroundColor = decodeURIComponent(getAllUrlParams()["o1"]);
   } else {
-    myIntro.backgroundImage = decodeURIComponent(getAllUrlParams()["o0a"]);
+    myIntro.backgroundImage = decodeURIComponent(getAllUrlParams()["o1"]);
   }
-  myIntro.fontFamily = decodeURIComponent(getAllUrlParams()["o1"]);
-  myIntro.explosionStrength = decodeURIComponent(getAllUrlParams()["o2"]);
-  myIntro.transitionSpeed = decodeURIComponent(getAllUrlParams()["o3"]);
-  myIntro.pause = decodeURIComponent(getAllUrlParams()["o4"]);
-  myIntro.replay = (decodeURIComponent(getAllUrlParams()["o5"]) === "true");
+  myIntro.fontFamily = decodeURIComponent(getAllUrlParams()["o2"]);
+  myIntro.explosionStrength = decodeURIComponent(getAllUrlParams()["o3"]);
+  myIntro.transitionSpeed = decodeURIComponent(getAllUrlParams()["o4"]);
+  myIntro.pause = decodeURIComponent(getAllUrlParams()["o5"]);
+  myIntro.replay = (decodeURIComponent(getAllUrlParams()["o6"]) === "true");
   
   return myIntro;
 }

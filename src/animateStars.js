@@ -94,7 +94,9 @@ function centerTextVertically() {
   || document.body.clientHeight;
 
   let textHeight  = containerDiv.select("div.textbox").node().getBoundingClientRect().height;
-  d3.select("div.textbox").style("padding-top", (h - textHeight) / 2 + "px");
+  let firstLineHeight = d3.select("div.textbox div.widthForIE").node().getBoundingClientRect().height;
+  let pad = (h - textHeight) / 2 > firstLineHeight ? (h - textHeight) / 2 - firstLineHeight : (h - textHeight) / 2;
+  d3.select("div.textbox").style("padding-top", pad + "px");
 }
 
 function createPaths() {

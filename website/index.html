@@ -1,333 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Startext</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-
-  <style>
-    /* from https://codepo8.github.io/css-fork-on-github-ribbon/# */
-    #forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}
-    
-    h3, h5 {
-      text-align: center;
-    }
-
-    h1.shadow {
-      color: white;
-      text-shadow: 2px 2px 4px #000000;
-      text-align: center;
-      font-size: 48px;
-    }
-
-    .footer {
-        margin-right: 20px;
-        color: black;
-        text-align: right;
-        font-size: 12px;
-    }
-  </style>
-</head>
-<body>
-
-<span id="forkongithub"><a href="https://github.com/EE2dev/startext">Fork me on GitHub</a></span>
-<h1 class="shadow">
-  startext.js
-</h1>
-<h3>Make your own animated intro with startext.js within one minute!</h3>
-<h5>Type in your text lines and press the finish button. A new tab will be created with your animation, which you can bookmark.</h5>
-<hr>
-<div class="container">
-  <div class="general">
-      <a href="#demo" class="btn btn-default" data-toggle="collapse">show/hide options</a>
-      <div id="demo" class="collapse">
-      <form class="form-horizontal general">
-        <h2>Options</h2>
-        <div class="form-group">
-
-        <div class="row">
-            <label class="col-sm-3 control-label" id="label-bo">background image:</label>
-            <div class="col-sm-5">
-              <input class="form-control" id="focusedInput-bo" onchange="cacheImage()" type="text" value="https://ee2dev.github.io/startext/lib/nightSky.jpg">
-            </div>
-            <label class="col-sm-2 control-label">background option:</label>
-            <div class="col-sm-2">
-              <div class="dropdown">
-                <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-                  <span id="selected" class="bg-option">IMAGE</span>
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" class="bg-option">COLOR</a></li>
-                  <li><a href="#" class="bg-option">IMAGE</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <label class="col-sm-3 control-label">font-family:</label>
-            <div class="col-sm-5">
-              <input class="form-control" id="focusedInput" type="text" value="Indie Flower">
-            </div>
-            <div class="col-sm-4"></div>
-          </div>
-
-          <div class="row">
-            <label class="col-sm-3 control-label">explosion strength [0, 1]:</label>
-            <div class="col-sm-5">
-              <input class="form-control" id="focusedInput" type="text" value="1">
-            </div>
-            <div class="col-sm-4"></div>
-          </div>
-
-          <div class="row">
-            <label class="col-sm-3 control-label">transition speed [0, 1]:</label>
-            <div class="col-sm-5">
-              <input class="form-control" id="focusedInput" type="text" value="0.686">
-            </div>
-            <div class="col-sm-4"></div>
-          </div>
-
-          <div class="row">
-            <label class="col-sm-3 control-label">pause [in ms]:</label>
-            <div class="col-sm-5">
-              <input class="form-control" id="focusedInput" type="text" value="5000">
-            </div>
-            <div class="col-sm-4"></div>
-          </div>
-
-
-
-          <div class="row">
-            <div class="checkbox col-sm-3">
-                <label class="pull-right active"><input type="checkbox" checked="checked"><b>replay</b></label>
-            </div>
-            <div class="checkbox col-sm-9">
+   <head>
+      <title>Startext</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <style>
+         /* from https://codepo8.github.io/css-fork-on-github-ribbon/# */
+         #forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}
+         h3, h5 {
+         text-align: center;
+         }
+         h1.shadow {
+         color: white;
+         text-shadow: 2px 2px 4px #000000;
+         text-align: center;
+         font-size: 48px;
+         }
+         .footer {
+         margin-right: 20px;
+         color: black;
+         text-align: right;
+         font-size: 12px;
+         }
+      </style>
+   </head>
+   <body>
+      <span id="forkongithub"><a href="https://github.com/EE2dev/startext">Fork me on GitHub</a></span>
+      <h1 class="shadow">
+         startext.js
+      </h1>
+      <h3>Make your own animated intro with startext.js within one minute!</h3>
+      <h5>Type in your text lines and press the finish button. A new tab will be created with your animation, which you can bookmark.</h5>
+      <hr>
+      <div class="container">
+         <div class="general">
+            <a href="#demo" class="btn btn-default" data-toggle="collapse">show/hide options</a>
+            <div id="demo" class="collapse">
+               <form class="form-horizontal general">
+                  <h2>Options</h2>
+                  <div class="form-group">
+                     <label class="col-sm-4 control-label">background option:</label>
+                     <div class="dropdown col-sm-8">
+                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span id="selected" class="bg-option">IMAGE</span>
+                        <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="#" class="bg-option">COLOR</a></li>
+                           <li><a href="#" class="bg-option">IMAGE</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-4 control-label" id="label-bo">background image:</label>
+                     <div class="col-sm-8">
+                        <input class="form-control" id="focusedInput-bo" onchange="cacheImage()" type="text" value="https://ee2dev.github.io/startext/lib/nightSky.jpg">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-4 control-label">font-family:</label>
+                     <div class="col-sm-8">
+                        <input class="form-control" id="focusedInput" type="text" value="Indie Flower">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-4 control-label">explosion strength [0, 1]:</label>
+                     <div class="col-sm-8">
+                        <input class="form-control" id="focusedInput" type="text" value="1">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-4 control-label">transition speed [0, 1]:</label>
+                     <div class="col-sm-8">
+                        <input class="form-control" id="focusedInput" type="text" value="0.686">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-4 control-label">pause [in ms]:</label>
+                     <div class="col-sm-8">
+                        <input class="form-control" id="focusedInput" type="text" value="5000">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="checkbox col-sm-4">
+                        <label class="pull-right active"><input type="checkbox" checked="checked"><b>replay</b></label>
+                     </div>
+                     <div class="checkbox col-sm-8">
+                     </div>
+                  </div>
+               </form>
             </div>
          </div>
-
-        </div>
-      </form>
-    </div>
-  </div>
-  <div class="pages">
-    <form class="form-horizontal p1">
-      <h2>Page 1</h2>
-
-      <div class="form-group">
-        <label class="col-sm-3 control-label">animation:</label>
-        <div class="dropdown col-sm-5">
-          <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-              <span id="selected" class="p1-l1">STARS</span>
-              <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-                  <li><a href="javascript:void(0)" class="p1-l1">STARS</a></li>
-                  <li><a href="javascript:void(0)" class="p1-l1">ROTATION</a></li>
-                  <li><a href="javascript:void(0)" class="p1-l1">SCALE</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-4"></div>
+         <div class="pages">
+            <form class="form-horizontal p1">
+               <h2>Page 1</h2>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">animation:</label>
+                  <div class="dropdown col-sm-9">
+                     <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+                     <span id="selected" class="p1-l1">STARS</span>
+                     <span class="caret"></span>
+                     </a>
+                     <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)" class="p1-l1">STARS</a></li>
+                        <li><a href="javascript:void(0)" class="p1-l1">ROTATION</a></li>
+                        <li><a href="javascript:void(0)" class="p1-l1">SCALE</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">line 1:</label>
+                  <div class="col-sm-9">
+                     <input class="form-control" id="focusedInput" type="text" onfocus="this.value=''" value="write line 1 here...">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">line 2:</label>
+                  <div class="col-sm-9">
+                     <input class="form-control" id="focusedInput" type="text" onfocus="this.value=''" value="write line 2 here...">
+                  </div>
+               </div>
+         </div>
+         </form>
+         <div class="form-group">
+            <button type="button" class="btn add-page">add page</button>
+            <button type="button" class="btn btn-default add-line">add line</button>
+            <button type="button" class="btn btn-danger remove-page">remove last page</button>
+            <button type="button" class="btn btn-success finish">finish</button> 
+            <br>
+         </div>
+         <hr>
       </div>
-
-      <div class="form-group">
-        <label class="col-sm-3 control-label">line 1:</label>
-        <div class="col-sm-5">
-          <input class="form-control" id="focusedInput" type="text" onfocus="this.value=''" value="write line 1 here...">
-        </div>
-        <div class="col-sm-4"></div>
+      <div class="footer">
+         <p>Copyright &copy; 2018 Mihael Ankerst</p>
       </div>
-
-      <div class="form-group">
-          <label class="col-sm-3 control-label">line 2:</label>
-          <div class="col-sm-5">
-            <input class="form-control" id="focusedInput" type="text" onfocus="this.value=''" value="write line 2 here...">
-          </div>
-          <div class="col-sm-4"></div>
-      </div>
-
-    </div>
-  </form>
-  <div class="row">
-    <button type="button" class="btn add-page">add page</button>
-    <button type="button" class="btn btn-default add-line">add line</button>
-    <button type="button" class="btn btn-danger remove-page">remove last page</button>
-    <button type="button" class="btn btn-success finish">finish</button> 
-    <br>
-  </div>
-  <hr>
-</div>
-<div class="footer">
-  <p>Copyright © 2018 Mihael Ankerst</p>
-</div>
 
 <script>
-  updateEventlistenersDropdown();
-
-  $('.btn.add-page').click(function(){
-    addPage(d3.select("div.pages"));
-  });
-
-  $('.btn.add-line').click(function(){
-    addLine(d3.select("form.p" + page), line);
-  });
-
-  $('.btn.remove-page').click(function(){
-    if (page > 1) {
-      d3.select("form.p" + page).remove();
-      page = page - 1;
-      line = d3.selectAll("form.p" + page + " .form-group").size() + 1;
-    }
-  });
-
-  $('.btn.finish').click(function(){
-    callStarText();
-  });
-
-  var page = 1;
-  var line = 3;
-
-  function updateEventlistenersDropdown(){
-    $('.dropdown-menu a').click(function(){
-      var cl = d3.select(this).attr("class");
-      $('span.' + cl).text($(this).text());
-      if (cl === "bg-option"){
-        if ($(this).text() === "COLOR") {
-          $("#focusedInput-bo").val("#111111");
-          $("#label-bo").text("background color:");
-        } else if ($(this).text() === "IMAGE") {
-          $("#focusedInput-bo").val("https://ee2dev.github.io/startext/lib/nightSky.jpg");
-          $("#label-bo").text("background image:");
-        }
+    updateEventlistenersDropdown();
+    $('.btn.add-page').click(function(){
+      addPage(d3.select("div.pages"));
+    });
+    $('.btn.add-line').click(function(){
+      addLine(d3.select("form.p" + page), line);
+    });
+    $('.btn.remove-page').click(function(){
+      if (page > 1) {
+        d3.select("form.p" + page).remove();
+        page = page - 1;
+        line = d3.selectAll("form.p" + page + " .form-group").size() + 1;
       }
     });
-  }
-
-  function cacheImage() {
-    console.log("cache image begin --");
-    var img = new Image();
-    img.src = d3.select("input#focusedInput-bo").node().value;
-  }
-
-  function callStarText() {
-    var getParameters = "";
-    var str;
-    d3.selectAll("div.pages>form.form-horizontal")
-      .each(function(d,page){
-        d3.select(this).selectAll("div.form-group")
-        .each(function(d,i){
-          if (i === 0) {
-            str = d3.select(this).select("span#selected").text();
-            getParameters = getParameters + "&p" + page  + "dl=" + str; 
-          } else {
-            str = encodeURIComponent(d3.select(this).select("input").node().value);
-            getParameters = getParameters + "&p" + page  + "l" + i + "=" + str; 
-          }
-          console.log("page (" + page +") line(" + i +"): " + str);
-        })
-      });
-    var lastOption = d3.selectAll("div.general div.row").size() - 1;
-    d3.selectAll("div.general div.row")
-      .each(function(d,i){
-        if (i === 0) { 
-          str = encodeURIComponent(d3.select(this).select("input").node().value);
-          getParameters = getParameters + "&o" + i + "a=" + str; 
-          console.log("option (" + i +"a): " + str);
-
-          str = d3.select(this).select("span#selected").text();
-          getParameters = getParameters + "&o" + i + "b=" + str; 
-          console.log("option (" + i +"b): " + str);
-        } 
-        else if (i === lastOption) {
-          str = encodeURIComponent(d3.select(this).select("input").node().checked);
-          getParameters = getParameters + "&o" + i + "=" + str; 
-          console.log("option (" + i +"): " + str);
-        } 
-        else {
-          str = encodeURIComponent(d3.select(this).select("input").node().value);
-          getParameters = getParameters + "&o" + i + "=" + str; 
-          console.log("option (" + i +"): " + str);
-        }
+    $('.btn.finish').click(function(){
+      callStarText();
     });
-    window.open("st.html?" + getParameters);
-  }
-
-  function addPage(sel){
-    page = page + 1;
-    line = 1;
-    sel = sel.append("form").attr("class", "form-horizontal p" + page);
-    sel.append("h2").text("Page " + page);
-    addAnimation(sel);
-    addLine(sel, line);
-    addLine(sel, line);
-  }
-
-  function addAnimation(sel){
-    sel = sel.append("div")
-      .attr("class", "form-group");
-    sel.append("label")
-      .attr("class", "col-sm-3 control-label")
-      .text("animation:");
-    sel = sel.append("div")
-      .attr("class", "dropdown col-sm-5");
-    var sel3 = sel.append("a")
-      .attr("role", "button")
-      .attr("data-toggle", "dropdown")
-      .attr("class", "dropdown-toggle")
-      .attr("href", "#");
-    sel3.append("span")
-      .attr("id", "selected")
-      .attr("class", "p" + page + "-l" + line)
-      .text("STARS");
-    sel3.append("span")
-      .attr("class", "caret");
-    sel = sel.append("ul")
-      .attr("class", "dropdown-menu p" + page + " l" + line);
-    sel.append("li")
-      .append("a")
-      .attr("href", "javascript:void(0)")
-      .attr("class", "p" + page + "-l" + line)
-      .text("STARS");
-    sel.append("li")
-      .append("a")
-      .attr("href", "javascript:void(0)")
-      .attr("class", "p" + page + "-l" + line)
-      .text("ROTATION");
-    sel.append("li")
-      .append("a")
-      .attr("href", "javascript:void(0)")
-      .attr("class", "p" + page + "-l" + line)
-      .text("SCALE");
+    var page = 1;
+    var line = 3;
+    function updateEventlistenersDropdown(){
+      $('.dropdown-menu a').click(function(){
+        var cl = d3.select(this).attr("class");
+        $('span.' + cl).text($(this).text());
+        if (cl === "bg-option"){
+          if ($(this).text() === "COLOR") {
+            $("#focusedInput-bo").val("#111111");
+            $("#label-bo").text("background color:");
+          } else if ($(this).text() === "IMAGE") {
+            $("#focusedInput-bo").val("https://ee2dev.github.io/startext/lib/nightSky.jpg");
+            $("#label-bo").text("background image:");
+          }
+        }
+      });
+    }
+    function cacheImage() {
+      console.log("cache image begin --");
+      var img = new Image();
+      img.src = d3.select("input#focusedInput-bo").node().value;
+    }
+    function callStarText() {
+      var getParameters = "";
+      var str;
+      d3.selectAll("div.pages>form.form-horizontal")
+        .each(function(d,page){
+          d3.select(this).selectAll("div.form-group")
+          .each(function(d,i){
+            if (i === 0) {
+              str = d3.select(this).select("span#selected").text();
+              getParameters = getParameters + "&p" + page  + "dl=" + str; 
+            } else {
+              str = encodeURIComponent(d3.select(this).select("input").node().value);
+              getParameters = getParameters + "&p" + page  + "l" + i + "=" + str; 
+            }
+            console.log("page (" + page +") line(" + i +"): " + str);
+          })
+        });
+      var lastOption = d3.selectAll("div.general div.form-group").size() - 1;
+      d3.selectAll("div.general div.form-group")
+        .each(function(d,i){
+          if (i === 0) { 
+            str = d3.select(this).select("span#selected").text();
+            getParameters = getParameters + "&o" + i + "=" + str; 
+            console.log("option (" + i +"): " + str);
+          } 
+          else if (i === lastOption) {
+            str = encodeURIComponent(d3.select(this).select("input").node().checked);
+            getParameters = getParameters + "&o" + i + "=" + str; 
+            console.log("option (" + i +"): " + str);
+          } 
+          else {
+            str = encodeURIComponent(d3.select(this).select("input").node().value);
+            getParameters = getParameters + "&o" + i + "=" + str; 
+            console.log("option (" + i +"): " + str);
+          }
+      });
+      window.open("st.html?" + getParameters);
+    }
+    function addPage(sel){
+      page = page + 1;
+      line = 1;
+      sel = sel.append("form").attr("class", "form-horizontal p" + page);
+      sel.append("h2").text("Page " + page);
+      addAnimation(sel);
+      addLine(sel, line);
+      addLine(sel, line);
+    }
+    function addAnimation(sel){
       sel = sel.append("div")
-      .attr("class", "col-sm-4");
-    updateEventlistenersDropdown();
-  }
+        .attr("class", "form-group");
+      sel.append("label")
+        .attr("class", "col-sm-3 control-label")
+        .text("animation:");
+      sel = sel.append("div")
+        .attr("class", "dropdown col-sm-9");
+      var sel3 = sel.append("a")
+        .attr("role", "button")
+        .attr("data-toggle", "dropdown")
+        .attr("class", "dropdown-toggle")
+        .attr("href", "#");
+      sel3.append("span")
+        .attr("id", "selected")
+        .attr("class", "p" + page + "-l" + line)
+        .text("STARS");
+      sel3.append("span")
+        .attr("class", "caret");
+      sel = sel.append("ul")
+        .attr("class", "dropdown-menu p" + page + " l" + line);
+      sel.append("li")
+        .append("a")
+        .attr("href", "javascript:void(0)")
+        .attr("class", "p" + page + "-l" + line)
+        .text("STARS");
+      sel.append("li")
+        .append("a")
+        .attr("href", "javascript:void(0)")
+        .attr("class", "p" + page + "-l" + line)
+        .text("ROTATION");
+      sel.append("li")
+        .append("a")
+        .attr("href", "javascript:void(0)")
+        .attr("class", "p" + page + "-l" + line)
+        .text("SCALE");
+      updateEventlistenersDropdown();
+    }
 
-  function addLine(sel, lnr){
-    sel = sel.append("div")
-      .attr("class", "form-group");
-    sel.append("label")
-      .attr("class", "col-sm-3 control-label")
-      .text("line " + lnr + ":");
-    var sel2 = sel.append("div")
-      .attr("class", "col-sm-5");
-    sel2.append("input")
-      .attr("class", "form-control")
-      .attr("id", "focusedInput" + "-p" + page + "l" + line)
-      .attr("type", "text")
-      .attr("onfocus", "this.value=''")
-      .attr("value", "write line "+ lnr + " here...");
-    sel2 = sel2.append("div")
-      .attr("class", "col-sm-4");
-    
-    line = line + 1;
-  }
+    function addLine(sel, lnr){
+      sel = sel.append("div")
+        .attr("class", "form-group");
+      sel.append("label")
+        .attr("class", "col-sm-3 control-label")
+        .text("line " + lnr + ":");
+      var sel2 = sel.append("div")
+        .attr("class", "col-sm-9");
+      sel2.append("input")
+        .attr("class", "form-control")
+        .attr("id", "focusedInput" + "-p" + page + "l" + line)
+        .attr("type", "text")
+        .attr("onfocus", "this.value=''")
+        .attr("value", "write line "+ lnr + " here...");
+     
+      line = line + 1;
+    }
+  </script>
 
-</script>
 </body>
 </html>

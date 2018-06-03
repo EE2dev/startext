@@ -359,7 +359,9 @@
     var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
     var textHeight = containerDiv.select("div.textbox").node().getBoundingClientRect().height;
-    d3.select("div.textbox").style("padding-top", (h - textHeight) / 2 + "px");
+    var firstLineHeight = d3.select("div.textbox div.widthForIE").node().getBoundingClientRect().height;
+    var pad = (h - textHeight) / 2 > firstLineHeight ? (h - textHeight) / 2 - firstLineHeight : (h - textHeight) / 2;
+    d3.select("div.textbox").style("padding-top", pad + "px");
   }
 
   function createPaths() {
