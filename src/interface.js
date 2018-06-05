@@ -11,7 +11,7 @@ export default function (_myIntro, bulkLoad) {
   options.pause = 5000; // pause in milliseconds in between the pages 
   options.transitionSpeed = 7;
   options.fontFamily = "Indie Flower";
-  options.background = COLOR;
+  options.background = IMAGE;
   options.backgroundColor = "#111111";
   options.backgroundImage = "https://ee2dev.github.io/startext/lib/nightSky.jpg";
   options.myIntro = _myIntro;

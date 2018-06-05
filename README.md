@@ -2,7 +2,9 @@
 
 An animation of text lines based on d3.js and [this amazing codepen from Blake Bowen](https://codepen.io/osublake/pen/RLOzxo).
 
-If you want to use it with your text, simply copy [the example from this block](https://bl.ocks.org/ee2dev/66c18f6626e186db0c252a57fceb5327) and adjust the `myIntro` array.
+The easiest way to play with startext is to use this website: https://ee2dev.github.io/startext/ 
+
+Or alternatively, to use startext.js with your text, simply copy [the example from this block](https://bl.ocks.org/ee2dev/66c18f6626e186db0c252a57fceb5327) and adjust the `myIntro` array.
 It contains pages with text lines which will be animated.
 The `myIntro` array is an array of array of strings. Each array of strings is displayed on one page. Each string is animated on one line.
 For example:
@@ -13,10 +15,10 @@ For example:
     <meta charset="utf-8">
     <head>    
         <title>animated intro</title>
-        <link href="https://ee2dev.github.io/startext/lib/startext-v11.css" rel="stylesheet">
+        <link href="https://ee2dev.github.io/startext/lib/startext-v12.css" rel="stylesheet">
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-        <script src="https://ee2dev.github.io/startext/lib/startext-v11.min.js"></script> 
+        <script src="https://ee2dev.github.io/startext/lib/startext-v12.min.js"></script> 
     </head>
 
     <body>
@@ -45,11 +47,13 @@ For example:
 ## API for startext.js
 function | parameter | explanation
 ------------ | -------|------
-`background()` | *integer* | e.g. `startext.chart(myIntro).background(startext.IMAGE)`. The default is startext.COLOR.
+`background()` | *integer* | e.g. `startext.chart(myIntro).background(startext.COLOR)`. The default is startext.IMAGE.
 `backgroundColor()` | *string* | e.g. `startext.chart(myIntro).backgroundColor("#000")`. The default is "#111111".
+`backgroundImage()` | *string* | e.g. `startext.chart(myIntro).backgroundImage("myBackground.jpg")`. The default is "https://ee2dev.github.io/startext/lib/nightSky.jpg".
 `explosionStrength()` | *float* | e.g. `startext.chart(myIntro).explosionStrength(0.8)`. The explosion strength of the punch line with colored stars. The minimum is 0 and the maximum is 1. The default is 1.
-`replay()` | *boolean* | e.g. `startext.chart(myIntro).replay(false)`. The default is true.
+`fontFamily()` | *string* | e.g. `startext.chart(myIntro).font-family("Lobster")`. The default is "Indie Flower".
 `pause()` | *integer* | e.g. `startext.chart(myIntro).pause(3000)`. The pause in between pages in milliseconds. The default is 5000.
+`replay()` | *boolean* | e.g. `startext.chart(myIntro).replay(false)`. The default is true.
 `transitionSpeed()` | *integer* | e.g. `startext.chart(myIntro).transitionSpeed(0.4)`. The transition speed of the default line animation with stars. The minimum is 0 and the maximum is 1. The default is 0.686.
 
 ## Installing
